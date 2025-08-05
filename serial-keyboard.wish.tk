@@ -1,0 +1,69 @@
+package require tserialport
+
+# Initialize serial port
+global serial_handle pressed
+array set pressed {}
+set ports [tserialport::getports]
+if {[llength $ports] > 0} {
+    set device [dict get [lindex $ports 0] device]
+    if {[catch {set serial_handle [tserialport::open $device -baud 9600]} err]} {
+        puts "Failed to connect to serial port: $err"
+        set serial_handle ""
+    } else {
+        puts "Connected to $device"
+    }
+} else {
+    puts "No serial ports found!"
+    set serial_handle ""
+}
+
+# Create GUI
+wm title . "Serial Keyboard Sender"
+entry .e -width 50
+pack .e -padx 10 -pady 10
+label .status -text "Type in the box above"
+pack .status -pady 5
+.e focus
+
+# Define event handlers
+proc on_key_down {char} {
+    global serial_handle pressed
+    if {![info exists pressed($char)]} {
+        set pressed($char) 1
+        if {$serial_handle != ""} {
+            if {[catch {tserialport::write $serial_handle "DOWN:$char\n"} err]} {
+                puts "Serial write error: $err"
+                .status configure -text "Serial write error"
+            } else {
+                puts "DOWN:$char"
+                .status configure -text "Sent DOWN: $char"
+            }
+        } else {
+            puts "No serial connection"
+            .status configure -text "No serial connection"
+        }
+    }
+}
+
+proc on_key_up {char} {
+    global serial_handle pressed
+    if {[info exists pressed($char)]} {
+        unset pressed($char)
+        if {$serial_handle != ""} {
+            if {[catch {tserialport::write $serial_handle "UP:$char\n"} err]} {
+                puts "Serial write error: $err"
+                .status configure -text "Serial write error"
+            } else {
+                puts "UP:$char"
+                .status configure -text "Sent UP: $char"
+            }
+        } else {
+            puts "No serial connection"
+            .status configure -text "No serial connection"
+        }
+    }
+}
+
+# Bind events
+bind .e <KeyPress> {if {[string length %A] > 0} {on_key_down %A}}
+bind .e <KeyRelease> {if {[string length %A] > 0} {on_key_up %A}}
