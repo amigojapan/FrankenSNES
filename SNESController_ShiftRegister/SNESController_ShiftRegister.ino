@@ -4,18 +4,18 @@
 //For Arduino Mega 1200
 //See r.lagserv.net for directions
 //By Riley Johanson 
-#define aPin 53
-#define bPin 51
-#define xPin 49
-#define yPin 47
-#define lPin 45
-#define rPin 43
-#define leftPin 41
-#define rightPin 39
-#define upPin 37
-#define downPin 35
-#define startPin 33
-#define selectPin 31 
+#define aPin 11
+#define bPin 10
+#define xPin 9
+#define yPin 8
+#define lPin 7
+#define rPin 6
+#define leftPin 5
+#define rightPin 4
+#define upPin 3
+#define downPin 2
+#define startPin 0
+#define selectPin 1 
 
 void setup() {
   // put your setup code here
@@ -52,7 +52,8 @@ void loop() {
   int cmd;
 
   cmd = Serial.read();
-
+  
+  //Serial.write(cmd);        // Echo exactly what was received
   switch(cmd)
   {
     case 'A': { pressButton(aPin);        break; }

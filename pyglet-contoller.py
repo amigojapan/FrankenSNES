@@ -1,4 +1,4 @@
-#!./pythonvirtualenv/bin/python3
+#!/home/amigojapan/Documents/GitHub/FrankenSnes-internet-controller/pythonvirtualenv/bin/python3
 import pyglet
 import serial
 
