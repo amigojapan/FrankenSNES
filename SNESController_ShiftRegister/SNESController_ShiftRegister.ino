@@ -4,7 +4,7 @@
 //For Arduino Mega 1200
 //See r.lagserv.net for directions
 //By Riley Johanson 
-#define aPin 11
+#define aPin 20
 #define bPin 10
 #define xPin 9
 #define yPin 8
@@ -45,41 +45,45 @@ void setup() {
   digitalWrite(startPin, HIGH);    //Start button            's'
   digitalWrite(selectPin, HIGH);   //Select button           'z'
   
-  Serial.begin(9600);
+  delay(1000); 
+  Serial.begin(115200);
+  delay(2000); 
+  Serial.println("\nStarting ESP32-C3 Frankensnes Sketch...");
+
 }
 
 void loop() {
-  int cmd;
-
-  cmd = Serial.read();
-  
-  //Serial.write(cmd);        // Echo exactly what was received
-  switch(cmd)
-  {
-    case 'A': { pressButton(aPin);        break; }
-    case '1': { releaseButton(aPin);      break; }
-    case 'B': { pressButton(bPin);        break; }
-    case '2': {releaseButton(bPin);       break; }
-    case 'X': { pressButton(xPin);        break; }
-    case '4': { releaseButton(xPin);      break; }
-    case 'Y': { pressButton(yPin);        break; }
-    case '3': { releaseButton(yPin);      break; }
-    case 'L': { pressButton(leftPin);     break; }
-    case '5': { releaseButton(leftPin);   break; }
-    case 'R': { pressButton(rightPin);    break; }
-    case '6': { releaseButton(rightPin);  break; }
-    case 'U': { pressButton(upPin);       break; }
-    case '7': { releaseButton(upPin);     break; }
-    case 'D': { pressButton(downPin);     break; }
-    case '8': { releaseButton(downPin);   break; }
-    case 'Q': { pressButton(lPin);        break; }
-    case 'O': { releaseButton(lPin);      break; }
-    case 'W': { pressButton(rPin);        break; }
-    case 'I': { releaseButton(rPin);      break; }
-    case 'S': { pressButton(startPin);    break; }
-    case '9': { releaseButton(startPin);  break; }
-    case 'Z': { pressButton(selectPin);   break; }
-    case 'P': { releaseButton(selectPin); break; }       
+  int cmd=NULL;
+  if (Serial.available() > 0) {
+    cmd = Serial.read();  
+    Serial.write(cmd);        // Echo exactly what was received
+    switch(cmd)
+    {
+      case 'A': { pressButton(aPin);        break; }
+      case '1': { releaseButton(aPin);      break; }
+      case 'B': { pressButton(bPin);        break; }
+      case '2': {releaseButton(bPin);       break; }
+      case 'X': { pressButton(xPin);        break; }
+      case '4': { releaseButton(xPin);      break; }
+      case 'Y': { pressButton(yPin);        break; }
+      case '3': { releaseButton(yPin);      break; }
+      case 'L': { pressButton(leftPin);     break; }
+      case '5': { releaseButton(leftPin);   break; }
+      case 'R': { pressButton(rightPin);    break; }
+      case '6': { releaseButton(rightPin);  break; }
+      case 'U': { pressButton(upPin);       break; }
+      case '7': { releaseButton(upPin);     break; }
+      case 'D': { pressButton(downPin);     break; }
+      case '8': { releaseButton(downPin);   break; }
+      case 'Q': { pressButton(lPin);        break; }
+      case 'O': { releaseButton(lPin);      break; }
+      case 'W': { pressButton(rPin);        break; }
+      case 'I': { releaseButton(rPin);      break; }
+      case 'S': { pressButton(startPin);    break; }
+      case '9': { releaseButton(startPin);  break; }
+      case 'Z': { pressButton(selectPin);   break; }
+      case 'P': { releaseButton(selectPin); break; }       
+    }
   }
 }
 

@@ -4,7 +4,8 @@ import serial
 
 # Initialize serial port
 # Using a typical Linux serial port; adjust '/dev/ttyUSB0' and baud rate (9600) as needed
-ser = serial.Serial('/dev/tty0', 9600)
+#ser = serial.Serial('/dev/tty0', 9600)
+ser = serial.Serial('/dev/ttyACM0', 115200)
 
 # Create a Pyglet window with the same dimensions and caption as the original Pygame program
 window = pyglet.window.Window(width=400, height=300, caption="Keyboard Event Monitor")
