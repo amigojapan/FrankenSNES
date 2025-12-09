@@ -30,10 +30,10 @@ def on_key_press(symbol, modifiers):
     #65363 right key
     #65362 up key
     #65364 down key
-    if(symbol==65507):
+    if(symbol==97):
         ser.write(b'A')
         print("Left pressed 'A'")
-    elif(symbol==65513):
+    elif(symbol==98):
         ser.write(b'B')
         print("Right pressed 'B'")
     elif(symbol==120):
@@ -72,10 +72,10 @@ def on_key_press(symbol, modifiers):
 def on_key_release(symbol, modifiers):
     print(f"Key {symbol} released")
     # Send a character 'R' through the serial port on key release
-    if(symbol==65507):
+    if(symbol==97):
         ser.write(b'1')
         print("Left pressed '1'")
-    elif(symbol==65513):
+    elif(symbol==98):
         ser.write(b'2')
         print("Right pressed '2'")
     elif(symbol==120):
